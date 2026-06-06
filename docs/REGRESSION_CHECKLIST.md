@@ -5,7 +5,7 @@
 - [ ] `npm ci` succeeds
 - [ ] `npm run typecheck` passes
 - [ ] `npm run lint` passes
-- [ ] `npm run test` passes (59 Vitest tests across 20 files)
+- [ ] `npm run test` passes (64 Vitest tests across 20 files)
 - [ ] `npm run build` passes
 - [ ] `bash -n scripts/*.sh` passes
 - [ ] `npm run test:e2e` passes locally when Playwright browsers are installed (6 mock-mode smoke tests)

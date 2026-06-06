@@ -1,5 +1,21 @@
 import type { Metric, MetricFilters } from '../types/metric';
 
+function toDateOnlyKey(value: string): string | null {
+  if (!value) return null;
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return value;
+  }
+
+  const timestamp = Date.parse(value);
+
+  if (Number.isNaN(timestamp)) {
+    return null;
+  }
+
+  return new Date(timestamp).toISOString().slice(0, 10);
+}
+
 export function filterMetrics(metrics: Metric[], filters: MetricFilters): Metric[] {
   const search = filters.search?.trim().toLowerCase() ?? '';
 
@@ -19,12 +35,18 @@ export function filterMetrics(metrics: Metric[], filters: MetricFilters): Metric
       return false;
     }
 
-    if (filters.from && metric.date < filters.from) {
-      return false;
-    }
+    if (filters.from || filters.to) {
+      const metricDate = toDateOnlyKey(metric.date);
 
-    if (filters.to && metric.date > filters.to) {
-      return false;
+      if (!metricDate) {
+        return false;
+      }
+
+      const fromDate = filters.from ? toDateOnlyKey(filters.from) : null;
+      const toDate = filters.to ? toDateOnlyKey(filters.to) : null;
+
+      if (fromDate && metricDate < fromDate) return false;
+      if (toDate && metricDate > toDate) return false;
     }
 
     return true;

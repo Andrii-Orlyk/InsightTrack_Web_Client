@@ -32,7 +32,7 @@ The E2E job starts the app with `npm run dev:mock` and runs 6 mock-mode Playwrig
 
 - CI must not require a live backend.
 - CI must not require private `.env` values.
-- CI uses deterministic unit/component/feature tests (59 Vitest tests across 20 files) and mock-backed E2E smoke tests (6 tests).
+- CI uses deterministic unit/component/feature tests (64 Vitest tests across 20 files) and mock-backed E2E smoke tests (6 tests).
 - Do not claim CI is passing on GitHub until Actions is actually green on the remote repository.
 
 ## Local equivalent
